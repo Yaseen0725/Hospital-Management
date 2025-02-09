@@ -11,7 +11,7 @@ public class PatientController {
     HashMap<Integer, Patient> PatientDb = new HashMap<>();
 
     @PostMapping("/addPatientViaParameters")
-    public String addPatientInfo(@RequestParam("patientId") Integer patientId, @RequestParam("name") String name,
+    public String addPatientViaParameters(@RequestParam("patientId") Integer patientId, @RequestParam("name") String name,
                                  @RequestParam("age") Integer age, @RequestParam("disease") String disease) {
 //        Create object
         Patient patient = new Patient(patientId, name, age, disease);
@@ -20,7 +20,7 @@ public class PatientController {
     }
 
     @PostMapping("/addPatientViaRequestBody")
-    public String addPatientInfo(@RequestBody Patient patient) {
+    public String addPatientViaRequestBody(@RequestBody Patient patient) {
         int key = patient.getPatientId();
         PatientDb.put(key, patient);
         return "Patient Added via request body";
@@ -41,8 +41,8 @@ public class PatientController {
         return patients;
     }
 
-    @GetMapping("/addPatientByName")
-    public Patient addPatientByName(@RequestParam("name") String name) {
+    @GetMapping("/getPatientByName")
+    public Patient getPatientByName(@RequestParam("name") String name) {
         for (Patient p : PatientDb.values()) {
             if (p.getName().equals(name)) {
                 return p;
@@ -51,7 +51,7 @@ public class PatientController {
         return null;
     }
 
-    @GetMapping("getPatientListgreaterThanAge")
+    @GetMapping("/getPatientListgreaterThanAge")
     public List<Patient> getPatientListgreaterThanAge(@RequestParam("age") Integer age) {
         List<Patient> patients = new ArrayList<>();
         for (Patient p : PatientDb.values()) {
