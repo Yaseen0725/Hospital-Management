@@ -51,8 +51,21 @@ public class PatientController {
         return null;
     }
 
-    @GetMapping("/getPatientListgreaterThanAge")
-    public List<Patient> getPatientListgreaterThanAge(@RequestParam("age") Integer age) {
+    @GetMapping("/urlEndPoint")
+    public Patient funcName(@RequestParam("name")String name){
+
+        for(Patient p: PatientDb.values()){
+
+            if(p.getName().equals(name)){
+                return p;
+            }
+        }
+
+        return null;
+    }
+
+    @GetMapping("/getPatientsListGreaterThanAge")
+    public List<Patient> getPatientsListGreaterThanAge(@RequestParam("age") Integer age) {
         List<Patient> patients = new ArrayList<>();
         for (Patient p : PatientDb.values()) {
             if (p.getAge() > age) {
