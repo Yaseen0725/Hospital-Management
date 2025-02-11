@@ -12,7 +12,7 @@ public class PatientController {
 
     @PostMapping("/addPatientViaParameters")
     public String addPatientViaParameters(@RequestParam("patientId") Integer patientId, @RequestParam("name") String name,
-                                 @RequestParam("age") Integer age, @RequestParam("disease") String disease) {
+                                          @RequestParam("age") Integer age, @RequestParam("disease") String disease) {
 //        Create object
         Patient patient = new Patient(patientId, name, age, disease);
         PatientDb.put(patientId, patient);
@@ -25,6 +25,7 @@ public class PatientController {
         PatientDb.put(key, patient);
         return "Patient Added via request body";
     }
+
 
     @GetMapping("/getPatientInfo")
     public Patient getPatientInfo(@RequestParam("patientId") Integer patientId) {
@@ -41,6 +42,7 @@ public class PatientController {
         return patients;
     }
 
+
     @GetMapping("/getPatientByName")
     public Patient getPatientByName(@RequestParam("name") String name) {
         for (Patient p : PatientDb.values()) {
@@ -51,18 +53,6 @@ public class PatientController {
         return null;
     }
 
-    @GetMapping("/urlEndPoint")
-    public Patient funcName(@RequestParam("name")String name){
-
-        for(Patient p: PatientDb.values()){
-
-            if(p.getName().equals(name)){
-                return p;
-            }
-        }
-
-        return null;
-    }
 
     @GetMapping("/getPatientsListGreaterThanAge")
     public List<Patient> getPatientsListGreaterThanAge(@RequestParam("age") Integer age) {
@@ -73,5 +63,43 @@ public class PatientController {
             }
         }
         return patients;
+    }
+
+    @PutMapping("/updateDisease")
+    public String updateDisease(@RequestParam("patientId") Integer patientId, @RequestParam("disease") String disease) {
+
+        if (PatientDb.containsKey(patientId)) {
+
+            Patient patient = PatientDb.get(patientId);
+
+            patient.setDisease(disease);
+
+            PatientDb.put(patientId, patient);
+
+            return "Updated successfully";
+        } else {
+            return "Patient does not exist";
+        }
+    }
+
+    @PutMapping("/updatePatientDetails")
+    public String updatePatientDetails(@RequestBody Patient patient) {
+
+        int key = patient.getPatientId();
+
+        if (PatientDb.containsKey(key)) {
+            PatientDb.put(key, patient);
+            return "Updated patient successfully";
+        } else {
+            return "Data was not existing";
+        }
+    }
+
+    @DeleteMapping("/deletePatient")
+    public String deletePatient(@RequestParam("patientId") Integer patientId) {
+
+        PatientDb.remove(patientId);
+
+        return "Patient deleted successfully";
     }
 }
