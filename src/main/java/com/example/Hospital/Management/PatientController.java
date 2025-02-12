@@ -1,5 +1,6 @@
 package com.example.Hospital.Management;
 
+import com.example.Hospital.Management.Patient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -7,10 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
     HashMap<Integer, Patient> PatientDb = new HashMap<>();
 
-    @PostMapping("/addPatientViaParameters")
+    @PostMapping("/addViaParameters")
     public String addPatientViaParameters(@RequestParam("patientId") Integer patientId, @RequestParam("name") String name,
                                           @RequestParam("age") Integer age, @RequestParam("disease") String disease) {
 //        Create object
@@ -19,7 +21,7 @@ public class PatientController {
         return "Patient Added via request param";
     }
 
-    @PostMapping("/addPatientViaRequestBody")
+    @PostMapping("/addViaRequestBody")
     public String addPatientViaRequestBody(@RequestBody Patient patient) {
         int key = patient.getPatientId();
         PatientDb.put(key, patient);
@@ -27,13 +29,13 @@ public class PatientController {
     }
 
 
-    @GetMapping("/getPatientInfo")
+    @GetMapping("/getInfo")
     public Patient getPatientInfo(@RequestParam("patientId") Integer patientId) {
         Patient patient = PatientDb.get(patientId);
         return patient;
     }
 
-    @GetMapping("/getAllPatients")
+    @GetMapping("/getAll")
     public List<Patient> getAllPatients() {
         List<Patient> patients = new ArrayList<>();
         for (Patient p : PatientDb.values()) {
@@ -43,7 +45,7 @@ public class PatientController {
     }
 
 
-    @GetMapping("/getPatientByName")
+    @GetMapping("/getByName")
     public Patient getPatientByName(@RequestParam("name") String name) {
         for (Patient p : PatientDb.values()) {
             if (p.getName().equals(name)) {
@@ -54,7 +56,7 @@ public class PatientController {
     }
 
 
-    @GetMapping("/getPatientsListGreaterThanAge")
+    @GetMapping("/getListGreaterThanAge")
     public List<Patient> getPatientsListGreaterThanAge(@RequestParam("age") Integer age) {
         List<Patient> patients = new ArrayList<>();
         for (Patient p : PatientDb.values()) {
@@ -82,7 +84,7 @@ public class PatientController {
         }
     }
 
-    @PutMapping("/updatePatientDetails")
+    @PutMapping("/updateDetails")
     public String updatePatientDetails(@RequestBody Patient patient) {
 
         int key = patient.getPatientId();
@@ -95,7 +97,7 @@ public class PatientController {
         }
     }
 
-    @DeleteMapping("/deletePatient")
+    @DeleteMapping("/delete")
     public String deletePatient(@RequestParam("patientId") Integer patientId) {
 
         PatientDb.remove(patientId);
