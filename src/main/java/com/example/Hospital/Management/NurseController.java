@@ -1,18 +1,30 @@
 package com.example.Hospital.Management;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/nurse")
 public class NurseController {
-    HashMap<Integer, Nurse> NurseDb = new HashMap<>();
-    @PostMapping("add")
-    public String addNurse(@RequestBody Nurse nurse){
-        return "Nurse added Successfully";
+    NurseService nurseService = new NurseService();
+
+    @PostMapping("/add")
+    public String addNurse(@RequestBody Nurse nurse) {
+        String ans = nurseService.addNurse(nurse);
+        return ans;
+    }
+
+    @GetMapping("/getByAge")
+    public List<Nurse> getNursesGreaterThanAge(@RequestParam("age") Integer age) {
+        List<Nurse> nurseList = nurseService.getList(age);
+        return nurseList;
+    }
+
+    @GetMapping("/getByQualification")
+    public List<Nurse> getNursesByQualification(@RequestParam("qualification") String qualification) {
+        List<Nurse> nurses = nurseService.getNursesWithQualification(qualification);
+        return nurses;
     }
 }
