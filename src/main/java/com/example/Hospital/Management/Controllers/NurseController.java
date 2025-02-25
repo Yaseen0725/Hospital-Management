@@ -1,8 +1,9 @@
-package com.example.Hospital.Management;
+package com.example.Hospital.Management.Controllers;
 
+import com.example.Hospital.Management.Models.Nurse;
+import com.example.Hospital.Management.Services.NurseService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController

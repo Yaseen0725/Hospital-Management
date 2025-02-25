@@ -1,4 +1,4 @@
-package com.example.Hospital.Management;
+package com.example.Hospital.Management.Models;
 
 public class Patient {
     private int patientId;

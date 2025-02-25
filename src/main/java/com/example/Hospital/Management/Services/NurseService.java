@@ -1,5 +1,7 @@
-package com.example.Hospital.Management;
+package com.example.Hospital.Management.Services;
 
+import com.example.Hospital.Management.Models.Nurse;
+import com.example.Hospital.Management.Repository.NurseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,8 +13,6 @@ public class NurseService {
 
     public String addNurse(Nurse nurse){
 
-        //We should write some logic :
-        //Validations
         if(nurse.getNurseId()<0){
             return "Enter a valid nurseId";
         }
