@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor  //Generates a constructor with all fields (attributes) of the class
+@NoArgsConstructor   // Generates a constructor with no parameters (default constructor)
 public class Patient {
     private int patientId;
     private String name;
